@@ -1,3 +1,3 @@
 jwt:
-  secret: ${JWT_SECRET}
-  expirationMs: 1800000
+  secret: a3VxY6SOM0ZgvjmGnWP7DPO0q3VaHNRCV4bL2dscMHgAsVJ1P8eL5pvbXESVrdZYG5jA8RRRJinuXx3Ww6PbPg==
+  expiration-ms: 1800000
