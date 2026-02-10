@@ -1,5 +1,6 @@
 package com.app.backend.user.controller;
 
+import com.app.backend.user.dto.LoginResponse;
 import com.app.backend.user.dto.RegisterRequest;
 import com.app.backend.user.entity.User;
 import com.app.backend.user.service.UserService;
@@ -31,5 +32,13 @@ public class UserController {
         return "User registered successfully";
     }
 
-    //public UserDetails registerUser(String username, String password)
+    @PostMapping("/auth/login")
+    public LoginResponse login(@RequestBody RegisterRequest request) {
+        String email = request.getEmail();
+        String password = request.getPassword();
+
+        String token = userService.loginUser(email,password);
+
+        return new LoginResponse(token);
+    }
 }
