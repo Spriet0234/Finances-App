@@ -3,6 +3,8 @@ package com.app.backend.user.service;
 import com.app.backend.security.JWTService;
 import com.app.backend.user.entity.User;
 import com.app.backend.user.exceptions.EmailAlreadyExistsException;
+import com.app.backend.user.exceptions.InvalidCredentialsException;
+import com.app.backend.user.exceptions.WrongEmailOrPassword;
 import com.app.backend.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,10 +45,13 @@ public class UserService implements UserDetailsService {
 
     public String loginUser(String email, String password){
         User user =  userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid credentials"));
 
         boolean loginAccepted = passwordEncoder.matches(password, user.getPassword());
 
+        if(!loginAccepted){
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
         //token to return
         return jwtService.generateToken(user.getId());
     }
