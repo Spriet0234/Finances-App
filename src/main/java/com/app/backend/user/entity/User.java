@@ -17,6 +17,7 @@ public class User implements UserDetails {
         this.email = email;
         this.passwordHash = password;
     }
+    protected User(){};
 
     @Id
     @GeneratedValue

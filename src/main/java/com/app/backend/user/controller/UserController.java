@@ -20,7 +20,9 @@ public class UserController {
 
     @GetMapping("/user/me")
     public String health(@AuthenticationPrincipal User user) {
-       return "Hello " + user.getUsername();
+
+
+        return "Hello " + user.getUsername();
     }
 
     @PostMapping("/auth/register")
