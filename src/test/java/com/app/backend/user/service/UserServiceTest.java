@@ -2,6 +2,7 @@ package com.app.backend.user.service;
 
 import com.app.backend.security.JWTService;
 import com.app.backend.user.entity.User;
+import com.app.backend.user.exceptions.InvalidCredentialsException;
 import com.app.backend.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,6 +69,22 @@ public class UserServiceTest {
         verify(userRepository,times(1)).findByEmail(testEmail);
 
         assertEquals("token",result);
+
+    }
+
+    @Test
+    void test_loginWithValidEmailWrongPassword_ShouldNotLogin(){
+        String testEmail = "testEmail";
+        String testPassword = "testPassword";
+        String encodedPassword = "encodedPassword";
+        User user = new User(testEmail,encodedPassword);
+
+        when(userRepository.findByEmail(testEmail)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(testPassword,encodedPassword)).thenReturn(false);
+
+        assertThrows(InvalidCredentialsException.class,() -> userService.loginUser(testEmail, testPassword));
+
+        verify(userRepository,times(1)).findByEmail(testEmail);
 
     }
 
