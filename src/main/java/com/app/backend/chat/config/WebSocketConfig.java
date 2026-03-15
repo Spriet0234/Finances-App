@@ -1,5 +1,6 @@
 package com.app.backend.chat.config;
 
+import com.app.backend.chat.into.WebSocketAuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
