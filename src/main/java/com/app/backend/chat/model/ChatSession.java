@@ -44,4 +44,11 @@ public class ChatSession {
         this.title = title;
     }
 
+    public UUID getUserId() {
+        return userId;
+    }
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
 }

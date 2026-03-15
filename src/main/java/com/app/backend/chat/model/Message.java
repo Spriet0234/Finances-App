@@ -33,4 +33,16 @@ public class Message {
     public String getRole(){
         return role;
     }
+
+    public void setChatSessionId(UUID chatSessionId) {
+        this.chatSessionId = chatSessionId;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
